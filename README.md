@@ -1,0 +1,5 @@
+duplicationDetector is an accurate and very fast tool easily and successfully used to detect duplicates in rice and can be used for any self-pollinating species. The inpout file of this script is a vcf generated afetr common NGS data analysis. The full analysis is performed in three steps. 
+The first step is Heterozygous points recovery. Using the perl script "vcf_filter.pl", the tools  detect lines of interest with a maximum number of heterozygous having MQ0 = 0 with the defined depth value of reads.
+In the second step, the previous lines of interest are splitted into genomic intervals with "genomic_interval_position.pl" 
+The last step consist to cross genomic intervals obtained with an annotated genome data base using IntersectBeds tools in order to evidence the duplicated regions with their genes content.
+All these three steps are initiated in one command line using duplicationDetector.pl script. 
