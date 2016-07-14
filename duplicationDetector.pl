@@ -26,7 +26,7 @@ $sizeMax = 1000;
 $blocSize = 100;
 $density = 25;
 
-my $duplicationDetectorHome="/home/djedatin/DuplicationDetector";
+my $duplicationDetectorHome="/path/to/duplicationDetector";
 
 GetOptions("prout|help|?|h" => \$help,   
             "i|in=s"=>\$fileIn,
@@ -48,10 +48,10 @@ print "\n--- Hz points recovery ---\n";
 my $tmpOut1 = $fileIn;
 $tmpOut1 =~ s/\.vcf/-filtered\.vcf/;
 
-my $commandHz = "perl $duplicationDetectorHome/scripts/filtrer_lignes_vcf_MQ0.pl -i $fileIn -o $tmpOut1 -H $nbHzExpected -d $depth -M $MQ0Expected -m $missing -c $control";
+my $commandHz = "perl $duplicationDetectorHome/scripts/vcf_filter.pl -i $fileIn -o $tmpOut1 -H $nbHzExpected -d $depth -M $MQ0Expected -m $missing -c $control";
 
 
-system ("$commandHz") and die ("\nCannot launch the following command:\n$commandHz\n\n$!\n.Aborting...\n");
+system ("$commandHz") and die ("\nCannot launch the VCF filtration using the following command:\n$commandHz\n\n$!\n.Aborting...\n");
 
 
 print "\n--- Genomic bloc ---\n";
@@ -60,10 +60,10 @@ print "\n--- Genomic bloc ---\n";
 my $tmpOut2 = $fileIn;
 $tmpOut2 =~ s/\.vcf/-block\.csv/;
 
-my $commandBloc = "perl $duplicationDetectorHome/scripts/bloc_position.pl $tmpOut1 $tmpOut2 $sizeMax $blocSize $density";
+my $commandBloc = "perl $duplicationDetectorHome/scripts/genomic_interval_position.pl $tmpOut1 $tmpOut2 $sizeMax $blocSize $density";
 
 
-system ("$commandBloc") and die ("\nCannot launch the following command:\n$commandBloc\n\n$!\n.Aborting...\n");
+system ("$commandBloc") and die ("\nCannot launch the genomic interval determination using the following command:\n$commandBloc\n\n$!\n.Aborting...\n");
 
 
 
@@ -71,7 +71,7 @@ print "\n--- blocks gene content ---\n";
 
 my $commandBed = "intersectBed -wao -a $tmpOut2 -b $gff | grep \"gene\" | grep -v \"transposo\" > $fileOut";
 
-system ("$commandBed") and die ("\nCannot launch the following command:\n$commandBed\n\n$!\n.Aborting...\n");
+system ("$commandBed") and die ("\nCannot launch the duplicated gene determination the following command:\n$commandBed\n\n$!\n.Aborting...\n");
 
 print "\n--- Finished ---\n";
 
