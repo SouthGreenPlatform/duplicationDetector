@@ -198,6 +198,6 @@ my $mean = int($DP/$i); # the entire average value of depth with "int" that mean
 
 	}
 
-print "My number of lines of interest is $nbHz with at least $nbHzExpected heterozygous having MQ0 equal at least to $MQ0Expected value and depth of reads equal to $depth on a total of $nbLignes\n";
+print "The number of lines of interest is $nbHz with at least $nbHzExpected heterozygous having MQ0 equal at least to $MQ0Expected value and depth of reads equal to $depth on a total of $nbLignes\n";
 
 exit;
