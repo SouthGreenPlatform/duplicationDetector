@@ -38,6 +38,19 @@ use Getopt::Long;
 
 my ($fileIn,$fileOut,$control,$nbHzExpected,$depth,$MQ0Expected,$help,$missing,$sizeMax,$blocSize,$density,$gff);
 
+my $courriel="gustave.djedatin-at-ird.fr";
+my ($nomprog) = $0 =~/([^\/]+)$/;
+my $MessAbruti ="\nUsage:
+\t$nomprog -i VCFIn -o fileOut [-c control homozygous list -d depth -H nbHzExpected -M MQ0Expected -m missingData -s maximum size between 2 points -b minimal block size -D minimal block density] 
+
+
+control homozygous list will be ReadGroup separated by commas (ex Ind1,Ind2)
+
+Defaults value are -d 30 -H 8 -M 0 -m 2 -D 25 -b 100 -s 1000 -c undef;
+
+        contact: $courriel\n\n";
+
+
 #Standard values
 $nbHzExpected = 8;
 $depth = 30;
@@ -47,7 +60,12 @@ $sizeMax = 1000;
 $blocSize = 100;
 $density = 25;
 
-my $duplicationDetectorHome="/path/to/duplicationDetector";
+unless (@ARGV) 
+        {
+        print "\nType --help for more informations\n\n";
+        exit;
+        }
+
 
 GetOptions("prout|help|?|h" => \$help,   
             "i|in=s"=>\$fileIn,
@@ -59,8 +77,16 @@ GetOptions("prout|help|?|h" => \$help,
             "m|missing=s"=>\$missing,
             "s|sizeMax=s"=>\$sizeMax,
             "b|blocSize=s"=>\$blocSize,
-            "d|density=s"=>\$density,
+            "D|density=s"=>\$density,
 	    "g|gff=s"=>\$gff);
+
+if ($help)
+	{
+	print $MessAbruti,"\n";
+	exit;
+	}
+
+my $duplicationDetectorHome="/path/to/duplicationDetector";
 
 
 print "\n--- Hz points recovery ---\n";
@@ -81,7 +107,7 @@ print "\n--- Genomic bloc ---\n";
 my $tmpOut2 = $fileIn;
 $tmpOut2 =~ s/\.vcf/-block\.csv/;
 
-my $commandBloc = "perl $duplicationDetectorHome/scripts/genomic_interval_position.pl $tmpOut1 $tmpOut2 $sizeMax $blocSize $density";
+my $commandBloc = "perl $duplicationDetectorHome/scripts/genomic_interval_position.pl -i $tmpOut1 -o $tmpOut2 -s $sizeMax -b $blocSize -d $density";
 
 
 system ("$commandBloc") and die ("\nCannot launch the genomic interval determination using the following command:\n$commandBloc\n\n$!\n.Aborting...\n");
