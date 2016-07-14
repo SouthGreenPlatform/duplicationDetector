@@ -63,7 +63,7 @@ $density = 25;
 unless (@ARGV) 
         {
         print "\nType --help for more informations\n\n";
-        exit;contact: 
+        exit;
         }
 
 
