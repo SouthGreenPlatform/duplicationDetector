@@ -192,7 +192,7 @@ while (my $ligne=<FIC_VCF>)
 
 	#Print by position the number of heterozygotes 
 	$nbHz++;
-my $mean = int($DP/$i); # the entire average value of depth with "int" that means entire number
+	my $mean = int($DP/$i); # the entire average value of depth with "int" that means entire number
 	my $out = $chromosome."\t".$position."\t".$mean."\t".$i."\t".$resultats_split[3]."\t".$resultats_split[4]."\tMQ0=".$info{"MQ0"}."\t".$info."\n";
 	print OUT $out;
 
