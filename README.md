@@ -12,4 +12,31 @@ The last step consists in crossing the genomic intervals obtained in the previou
 
 While each steps can be launched independantly, the *duplicationDetector.pl* script can be used to launch the complete analysis directly.
 
+# REQUIREMENTS
+* Perl 5.xx
+* BEDtools
+
 # MANUAL
+Usage:
+
+````
+perl duplicationDetector.pl -i VCFIn -o fileOut
+  [-c control homozygous list
+   -d depth
+   -H nbHzExpected
+   -M MQ0Expected
+   -m missingData
+   -s maximum size between 2 points
+   -b minimal block size
+   -D minimal block density]
+````
+
+Control homozygous list will be ReadGroup separated by commas (ex Ind1,Ind2)
+
+Defaults value are -d 30 -H 8 -M 0 -m 2 -D 25 -b 100 -s 1000 -c undef;
+
+# CONTACTS
+
+gustave.djedatin-at-ird.fr
+
+francois.sabot-at-ird.fr
