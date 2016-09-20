@@ -1,3 +1,5 @@
+![DuplicationDetector Logo](Logo.png)
+
 # SYNOPSIS
 
 **duplicationDetector** is an accurate and very fast tool to easily and successfully detect duplicated genes or regions in any autogamous species. It relies on the abnormal number of heterozygous in a given interval for an autogamous (and thus highly homozygous) species. In addition, it does not need another large computational time as it will use classical output of NGS SNP analysis, the VCF file.
