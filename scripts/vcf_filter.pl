@@ -2,7 +2,7 @@
 
 ###################################################################################################################################
 #
-# Copyright 2016 IRD-FAST/DASSA
+# Copyright 2016-2017 IRD-FAST/DASSA
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
 #
 # Intellectual property belongs to IRD and FAST/DASSA
-# Version 1 written by Gustave Djedatin and Francois Sabot
+# Version 1 and latter written by Gustave Djedatin and Francois Sabot
 ####################################################################################################################################
 
 use strict;
