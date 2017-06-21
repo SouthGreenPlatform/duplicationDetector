@@ -105,7 +105,11 @@ while (my $ligne=<FIC_VCF>)
 			{
 			$j++;
 			next if $j < 9;
-			$controlHash{$j}=1 if $local ~~ @controlList;
+			
+			foreach my $controlIndiv (@controlList)
+			{
+				$controlHash{$j}=1 if $local eq $controlIndiv;
+			}
 			#print $j." " if $local ~~ @controlList;;
 			}
 		#print Dumper(\%controlHash);

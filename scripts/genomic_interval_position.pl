@@ -37,7 +37,7 @@ use Data::Dumper;
 
 
 
-my ($fileIn,$fileOut,$sizeMax,$blocSize,$density,$help)=@ARGV;
+my ($fileIn,$fileOut,$sizeMax,$blocSize,$density,$help);
 
 my $courriel="gustave.djedatin-at-ird.fr";
 my ($nomprog) = $0 =~/([^\/]+)$/;
@@ -68,7 +68,11 @@ GetOptions("prout|help|?|h" => \$help,
             "b|heterozygous=s"=>\$blocSize,
             "d|depth=s"=>\$density);
            
- 
+ if ($help)
+    {
+        print $MessAbruti;
+        exit;
+    }
 
 open (FIC_VCF,"<",$fileIn) or die ("\nCannot open $fileIn file: $!\nAborting\n"); #the input file will be the first argument of the command line
 open (OUT,">",$fileOut)or die ("\nCannot create file: $!\nAborting\n"); #output file, the second argument, ">" means "read only"
