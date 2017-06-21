@@ -41,12 +41,12 @@ my ($fileIn,$fileOut,$control,$nbHzExpected,$depth,$MQ0Expected,$help,$missing,$
 my $courriel="gustave.djedatin-at-ird.fr";
 my ($nomprog) = $0 =~/([^\/]+)$/;
 my $MessAbruti ="\nUsage:
-\t$nomprog -i VCFIn -o fileOut [-c control homozygous list -d depth -H nbHzExpected -M MQ0Expected -m missingData -s maximum size between 2 points -b minimal block size -D minimal block density] 
+\t$nomprog -i VCFIn -o fileOut [-c control homozygous list -d depth -H nbHzExpected -M MQ0Expected -m missingData -s maximum size between 2 points -b minimal block size -D minimal block density -g gffFile] 
 
 
 control homozygous list will be ReadGroup separated by commas (ex Ind1,Ind2)
 
-Defaults value are -d 30 -H 8 -M 0 -m 2 -D 25 -b 100 -s 1000 -c undef;
+Defaults value are -d 30 -H 8 -M 0 -m 2 -D 25 -b 100 -s 1000 -c undef -g undef;
 
         contact: $courriel\n\n";
 
@@ -59,6 +59,8 @@ $missing = 2;
 $sizeMax = 1000;           
 $blocSize = 100;
 $density = 25;
+$control="";
+$gff = "";
 
 unless (@ARGV) 
         {
@@ -78,7 +80,7 @@ GetOptions("prout|help|?|h" => \$help,
             "s|sizeMax=s"=>\$sizeMax,
             "b|blocSize=s"=>\$blocSize,
             "D|density=s"=>\$density,
-	    "g|gff=s"=>\$gff);
+            "g|gff=s"=>\$gff);
 
 if ($help)
 	{
@@ -95,7 +97,8 @@ print "\n--- Hz points recovery ---\n";
 my $tmpOut1 = $fileIn;
 $tmpOut1 =~ s/\.vcf/-filtered\.vcf/;
 
-my $commandHz = "perl $duplicationDetectorHome/scripts/vcf_filter.pl -i $fileIn -o $tmpOut1 -H $nbHzExpected -d $depth -M $MQ0Expected -m $missing -c $control";
+my $commandHz = "perl $duplicationDetectorHome/scripts/vcf_filter.pl -i $fileIn -o $tmpOut1 -H $nbHzExpected -d $depth -M $MQ0Expected -m $missing";
+$commandHz .= " -c $control" if $control;
 
 
 system ("$commandHz") and die ("\nCannot launch the VCF filtration using the following command:\n$commandHz\n\n$!\n.Aborting...\n");
@@ -113,12 +116,19 @@ my $commandBloc = "perl $duplicationDetectorHome/scripts/genomic_interval_positi
 system ("$commandBloc") and die ("\nCannot launch the genomic interval determination using the following command:\n$commandBloc\n\n$!\n.Aborting...\n");
 
 
-
-print "\n--- blocks gene content ---\n";
-
-my $commandBed = "intersectBed -wao -a $tmpOut2 -b $gff | grep \"gene\" | grep -v \"transposo\" > $fileOut";
-
-system ("$commandBed") and die ("\nCannot launch the duplicated gene determination the following command:\n$commandBed\n\n$!\n.Aborting...\n");
+if ($gff)
+{
+    print "\n--- Blocks gene content ---\n";
+    
+    my $commandBed = "intersectBed -wao -a $tmpOut2 -b $gff | grep \"gene\" | grep -v \"ransposo\" > $fileOut";
+    
+    system ("$commandBed") and die ("\nCannot launch the duplicated gene determination the following command:\n$commandBed\n\n$!\n.Aborting...\n");
+}
+else
+{
+    print "\n--- No gff provided, switching the block gene control ---\n";
+    system("mv $tmpOut2 $fileOut") and die ("\nCannot create the $fileOut outfile:\n$!\n.Aborting...\n");
+}
 
 print "\n--- Finished ---\n";
 

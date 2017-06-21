@@ -56,6 +56,7 @@ $nbHzExpected = 8;
 $depth = 30;
 $MQ0Expected = 0;
 $missing = 2;
+$control = "";
 
 GetOptions("prout|help|?|h" => \$help,        
             "i|in=s"=>\$fileIn,
@@ -106,9 +107,12 @@ while (my $ligne=<FIC_VCF>)
 			$j++;
 			next if $j < 9;
 			
-			foreach my $controlIndiv (@controlList)
+			if (scalar @controlList)
 			{
-				$controlHash{$j}=1 if $local eq $controlIndiv;
+				foreach my $controlIndiv (@controlList)
+				{
+					$controlHash{$j}=1 if $local eq $controlIndiv;
+				}
 			}
 			#print $j." " if $local ~~ @controlList;;
 			}
