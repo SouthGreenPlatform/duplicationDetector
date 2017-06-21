@@ -122,7 +122,7 @@ if ($gff)
     
     my $commandBed = "intersectBed -wao -a $tmpOut2 -b $gff | grep \"gene\" | grep -v \"ransposo\" > $fileOut";
     
-    system ("$commandBed") and die ("\nCannot launch the duplicated gene determination the following command:\n$commandBed\n\n$!\n.Aborting...\n");
+    system ("$commandBed") and warn ("\nErrors occured during the duplicated gene determination the following command:\n$commandBed\n\n$!\n");
 }
 else
 {
