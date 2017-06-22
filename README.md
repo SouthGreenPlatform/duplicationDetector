@@ -26,7 +26,7 @@ Clone the current version of the deposit
 git clone https://github.com/SouthGreenPlatform/duplicationDetector
 ````
 
-Or download the current version at https://github.com/SouthGreenPlatform/duplicationDetector
+Or download the current version at https://github.com/SouthGreenPlatform/duplicationDetector/releases
 
 That's it!
 
