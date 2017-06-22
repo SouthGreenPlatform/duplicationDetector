@@ -10,13 +10,25 @@ The first step will recover the abnormaly heterozygous points, using the *perl* 
 
 In the second step, the previously selected points are combined into genomic intervals with *genomic_interval_position.pl* script. User can define the minimal size of intervals, as well as the maximal distance between 2 points to be linked and the minimal number of points per kb for the interval to be conserved.
 
-The last step consists in crossing the genomic intervals obtained in the previous step with an annotated genome data base using the *intersectBed* from the **BEDtools** suite, in order to evidence the duplicated genes.
+The last optional step consists in crossing the genomic intervals obtained in the previous step with an annotated genome data base using the *intersectBed* from the **BEDtools** suite, in order to evidence the duplicated genes.
 
 While each steps can be launched independantly, the *duplicationDetector.pl* script can be used to launch the complete analysis directly.
 
 # REQUIREMENTS
+* Linux 64bits system
 * Perl 5.xx
 * BEDtools
+
+# INSTALLATION
+Clone the current version of the deposit
+
+````
+git clone https://github.com/SouthGreenPlatform/duplicationDetector
+````
+
+Or download the current version at https://github.com/SouthGreenPlatform/duplicationDetector
+
+That's it!
 
 # MANUAL
 Usage:
