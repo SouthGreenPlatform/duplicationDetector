@@ -118,7 +118,7 @@ system ("$commandBloc") and die ("\nCannot launch the genomic interval determina
 
 if ($gff)
 {
-    print "\n--- Blocks gene content ---\n";
+    print "\n--- Gene block content ---\n";
     
     my $commandBed = "intersectBed -wao -a $tmpOut2 -b $gff | grep \"gene\" | grep -v \"ransposo\" > $fileOut";
     
@@ -126,7 +126,7 @@ if ($gff)
 }
 else
 {
-    print "\n--- No gff provided, switching the block gene control ---\n";
+    print "\n--- No gff provided, switching the gene block content ---\n";
     system("mv $tmpOut2 $fileOut") and die ("\nCannot create the $fileOut outfile:\n$!\n.Aborting...\n");
 }
 
