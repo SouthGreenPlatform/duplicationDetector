@@ -116,13 +116,29 @@ my $commandBloc = "perl $duplicationDetectorHome/scripts/genomic_interval_positi
 system ("$commandBloc") and die ("\nCannot launch the genomic interval determination using the following command:\n$commandBloc\n\n$!\n.Aborting...\n");
 
 
+
 if ($gff)
 {
+    open (my $fhFinal, ">", $fileOut) or die("\nCannot create the final file $fileOut:\n$!\n. Aborting...\n");
     print "\n--- Gene block content ---\n";
     
-    my $commandBed = "intersectBed -wao -a $tmpOut2 -b $gff | grep \"gene\" | grep -v \"ransposo\" > $fileOut";
+    my $commandBed = "intersectBed -wao -a $tmpOut2 -b $gff";
     
-    system ("$commandBed") and warn ("\nErrors occured during the duplicated gene determination the following command:\n$commandBed\n\n$!\n");
+    my $resultBed = `$commandBed` or warn ("\nErrors occured during the duplicated gene determination the following command:\n$commandBed\n\n$!\n");
+    chomp $resultBed;
+    
+    #Filtering on gene class
+    my @lines = split /\n/, $resultBed;
+    while (@lines)
+    {
+        my $currentLine = shift @lines;
+        my @fields = split /\t/, $currentLine;
+        next unless $fields[8] =~ m/gene/i;
+        print $fhFinal $currentLine;
+        print $fhFinal "\n";
+    }
+    close $fhFinal;
+    
 }
 else
 {
