@@ -34,7 +34,7 @@ That's it!
 Usage:
 
 ````
-perl duplicationDetector.pl -i VCFIn -o fileOut
+perl /path/to/duplicationDetector.pl -i VCFIn -o fileOut
   [-c control homozygous list
    -d depth
    -H nbHzExpected

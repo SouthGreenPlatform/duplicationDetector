@@ -88,7 +88,8 @@ if ($help)
 	exit;
 	}
 
-my $duplicationDetectorHome="/path/to/duplicationDetector";
+my $duplicationDetectorHome= $0;
+$duplicationDetectorHome =~ s/^(.*)\/duplicationDetector.pl$/$1/;
 
 
 print "\n--- Hz points recovery ---\n";
