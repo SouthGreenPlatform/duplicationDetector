@@ -14,6 +14,13 @@ The last optional step consists in crossing the genomic intervals obtained in th
 
 While each steps can be launched independantly, the *duplicationDetector.pl* script can be used to launch the complete analysis directly.
 
+# CITATION
+
+Please cite:
+
+Gustave Djedatin, Cécile Monat, Stefan Engelen, Francois Sabot, *DuplicationDetector*, a light weight tool for duplication detection using NGS data. **Current Plant Biology**, Volumes 9–10, 2017, Pages 23-28, ISSN 2214-6628, https://doi.org/10.1016/j.cpb.2017.07.001.
+(http://www.sciencedirect.com/science/article/pii/S2214662817300476)
+
 # REQUIREMENTS
 * Linux 64bits system
 * Perl 5.xx
